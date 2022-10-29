@@ -1,0 +1,44 @@
+[
+    {
+        "_id": {
+            "$oid": "635934da4dc2b0ee0d955f93"
+        },
+        "isAdmin": false,
+        "street": "",
+        "apartment": "",
+        "zip": "",
+        "city": "",
+        "country": "",
+        "dateCreated": {
+            "$date": {
+                "$numberLong": "1666790575313"
+            }
+        },
+        "name": "User",
+        "email": "user@user.com",
+        "passwordHash": "$2a$10$hDKkVIWDErqIJIntbJNFZOb.06Ajgvd9p7hdxZ1.jRTBwg4LuAqAO",
+        "phone": "(123) 456-7890",
+        "__v": 0
+    },
+    {
+        "_id": {
+            "$oid": "535934da4dc2b0ee0d955f92"
+        },
+        "isAdmin": true,
+        "street": "",
+        "apartment": "",
+        "zip": "",
+        "city": "",
+        "country": "",
+        "dateCreated": {
+            "$date": {
+                "$numberLong": "1666790575313"
+            }
+        },
+        "name": "Admin",
+        "email": "admin@admin.com",
+        "passwordHash": "$2a$10$hDKkVIWDErqIJIntbJNFZOb.06Ajgvd9p7hdxZ1.jRTBwg4LuAqAO",
+        "phone": "(123) 456-7890",
+        "__v": 0
+    }
+]
