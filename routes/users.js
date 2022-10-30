@@ -136,7 +136,7 @@ router.post('/login', async (req, res) => {
                     isAdmin: user.isAdmin
                 },
                 secret,
-                { expiresIn: jwtExpire }
+                { expiresIn: jwtExpire.toString() }
             );
 
             return res.status(200).send({ user: user.email, token: token });

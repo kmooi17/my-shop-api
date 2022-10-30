@@ -143,6 +143,10 @@ router.get('/get/totalsales', async (_req, res) => {
             { $group: { _id: null, totalsales: { $sum: '$totalPrice' } } }
         ]);
 
+        if (totalSales.length === 0) {
+            return res.status(200).send({ totalsales: 0 });
+        }
+
         if (!totalSales) {
             return res
                 .status(400)
@@ -160,10 +164,6 @@ router.get('/get/totalsales', async (_req, res) => {
 router.get(`/get/count`, async (_req, res) => {
     try {
         const orderCount = await Order.countDocuments((count) => count);
-
-        if (!orderCount) {
-            return res.status(400).json(sendResponse(false, 'Could not count orders'));
-        }
 
         return res.status(200).send({
             orderCount: orderCount
