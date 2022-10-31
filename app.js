@@ -20,7 +20,7 @@ app.options('*', cors());
 app.use(express.json());
 app.use(
     helmet({
-        crossOriginResourcePolicy: { policy: 'same-site' }
+        crossOriginResourcePolicy: { policy: 'cross-origin' }
     })
 );
 app.use(morgan('tiny'));
