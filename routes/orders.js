@@ -1,10 +1,12 @@
 const express = require('express');
 const router = express.Router();
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 const sendResponse = require('../helpers/utils');
 
 const { Order } = require('../models/order');
 const { OrderItem } = require('../models/order-item');
+const { Product } = require('../models/product');
 
 router.get(`/`, async (_req, res) => {
     try {
@@ -95,6 +97,45 @@ router.post('/', async (req, res) => {
         return res.status(200).send(order);
     } catch (error) {
         return res.status(500).json(sendResponse(false, `Failed to create order: ${error}`));
+    }
+});
+
+router.post('/create-checkout-session', async (req, res) => {
+    try {
+        const orderItems = req.body;
+        if (!orderItems) {
+            return res.status(404).json(sendResponse(false, 'Order Items not found'));
+        }
+
+        const lineItems = await Promise.all(
+            orderItems.map(async (orderItem) => {
+                const product = await Product.findById(orderItem.product);
+                return {
+                    price_data: {
+                        currency: 'zar',
+                        product_data: {
+                            name: product.name
+                        },
+                        unit_amount: product.price * 100 // cents
+                    },
+                    quantity: orderItem.quantity
+                };
+            })
+        );
+
+        const session = await stripe.checkout.sessions.create({
+            payment_method_types: ['card'],
+            line_items: lineItems,
+            mode: 'payment',
+            success_url: `${process.env.FRONTEND_URL}success`,
+            cancel_url: `${process.env.FRONTEND_URL}error`
+        });
+
+        return res.status(200).send({ id: session.id });
+    } catch (error) {
+        return res
+            .status(500)
+            .json(sendResponse(false, `Failed to create checkout session: ${error}`));
     }
 });
 

@@ -18,7 +18,11 @@ app.use(cors());
 app.options('*', cors());
 
 app.use(express.json());
-app.use(helmet());
+app.use(
+    helmet({
+        crossOriginResourcePolicy: { policy: 'same-site' }
+    })
+);
 app.use(morgan('tiny'));
 app.use(authJwt());
 app.use(errorHandler);

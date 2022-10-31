@@ -36,15 +36,11 @@ const orderSchema = mongoose.Schema({
     country: {
         type: String,
         required: true,
-        minlength: CHARACTER_LENGTH_LIMITS.MIN,
         maxlength: CHARACTER_LENGTH_LIMITS.LONG
     },
     phone: {
         type: String,
         required: true,
-        // TODO: Check this for internation numbers
-        minlength: CHARACTER_LENGTH_LIMITS.PHONE,
-        maxlength: CHARACTER_LENGTH_LIMITS.PHONE
     },
     status: {
         type: String,

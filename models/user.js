@@ -25,8 +25,6 @@ const userSchema = new mongoose.Schema({
     phone: {
         type: String,
         required: true,
-        minlength: CHARACTER_LENGTH_LIMITS.PHONE,
-        maxlength: CHARACTER_LENGTH_LIMITS.PHONE
     },
     isAdmin: {
         type: Boolean,
@@ -59,7 +57,6 @@ const userSchema = new mongoose.Schema({
     country: {
         type: String,
         default: '',
-        minlength: CHARACTER_LENGTH_LIMITS.MIN,
         maxlength: CHARACTER_LENGTH_LIMITS.LONG
     },
     dateCreated: {
