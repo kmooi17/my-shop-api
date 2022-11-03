@@ -20,7 +20,7 @@ const feedbackSchema = mongoose.Schema({
         type: String,
         required: true,
         minlength: CHARACTER_LENGTH_LIMITS.MIN,
-        maxlength: CHARACTER_LENGTH_LIMITS.MAX
+        maxlength: CHARACTER_LENGTH_LIMITS.MAX_MAX
     },
     user: {
         type: mongoose.Schema.Types.ObjectId,

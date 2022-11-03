@@ -7,7 +7,9 @@ const { Feedback } = require('../models/feedback');
 
 router.get(`/`, async (_req, res) => {
     try {
-        const feedbackList = await Feedback.find().sort({ dateCreated: -1 });
+        const feedbackList = await Feedback.find()
+            .populate('user', 'email')
+            .sort({ dateCreated: -1 });
         if (!feedbackList) {
             return res.status(404).json(sendResponse(false, 'Feedbacks not found'));
         }
@@ -20,7 +22,7 @@ router.get(`/`, async (_req, res) => {
 
 router.get(`/:id`, async (req, res) => {
     try {
-        const feedback = await Feedback.findById(req.params.id);
+        const feedback = await Feedback.findById(req.params.id).populate('user', 'email');
         if (!feedback) {
             return res.status(500).json(sendResponse(false, `Feedback ${req.params.id} not found`));
         }
