@@ -114,6 +114,42 @@ router.put('/:id', async (req, res) => {
     }
 });
 
+router.post('/register', async (req, res) => {
+    try {
+        const { name, email, password, phone } = req.body;
+        if (!name || !email || !password || !phone) {
+            return res.json(sendResponse(false, 'Please enter all user details'));
+        }
+
+        //Check if the user already exist or not
+        const userExist = await User.findOne({ email: req.body.email });
+        if (userExist) {
+            return res.status(400).json(sendResponse(false, 'Failed to create user'));
+        }
+
+        let user = new User({
+            name: req.body.name,
+            email: req.body.email,
+            passwordHash: bcrypt.hashSync(req.body.password, 10),
+            phone: req.body.phone,
+            isAdmin: req.body.isAdmin,
+            street: req.body.street,
+            apartment: req.body.apartment,
+            zip: req.body.zip,
+            city: req.body.city,
+            country: req.body.country
+        });
+
+        user = await user.save();
+
+        if (!user) return res.status(400).json(sendResponse(false, 'User cannot be created'));
+
+        return res.status(200).send(user);
+    } catch (err) {
+        return res.status(500).json(sendResponse(false, `Failed to create user: ${err}`));
+    }
+});
+
 router.post('/login', async (req, res) => {
     try {
         const secret = process.env.SECRET;

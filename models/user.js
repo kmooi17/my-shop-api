@@ -24,7 +24,7 @@ const userSchema = new mongoose.Schema({
     },
     phone: {
         type: String,
-        required: true,
+        required: true
     },
     isAdmin: {
         type: Boolean,
@@ -33,25 +33,21 @@ const userSchema = new mongoose.Schema({
     street: {
         type: String,
         default: '',
-        minlength: CHARACTER_LENGTH_LIMITS.MIN,
         maxlength: CHARACTER_LENGTH_LIMITS.LONG
     },
     apartment: {
         type: String,
         default: '',
-        minlength: CHARACTER_LENGTH_LIMITS.MIN,
         maxlength: CHARACTER_LENGTH_LIMITS.LONG
     },
     zip: {
         type: String,
         default: '',
-        minlength: CHARACTER_LENGTH_LIMITS.MIN,
         maxlength: CHARACTER_LENGTH_LIMITS.DEFAULT
     },
     city: {
         type: String,
         default: '',
-        minlength: CHARACTER_LENGTH_LIMITS.MIN,
         maxlength: CHARACTER_LENGTH_LIMITS.LONG
     },
     country: {
